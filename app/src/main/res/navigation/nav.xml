@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.app.stoikapp.view.splashscreen.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" />
+    <fragment
+        android:id="@+id/diagnosisFragment"
+        android:name="com.app.stoikapp.view.diagnosis.DiagnosisFragment"
+        android:label="fragment_diagnosis"
+        tools:layout="@layout/fragment_diagnosis" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.app.stoikapp.view.profile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.app.stoikapp.view.history.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.app.stoikapp.view.authentication.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/meditasiFragment"
+        android:name="com.app.stoikapp.view.meditasi.MeditasiFragment"
+        android:label="fragment_meditasi"
+        tools:layout="@layout/fragment_meditasi" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.app.stoikapp.view.authentication.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.app.stoikapp.view.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.app.stoikapp.view.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+</navigation>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:orderInCategory="100"
+        android:title="Home"
+        android:icon="@drawable/ic_launcher_background"/>
+
+    <item
+        android:id="@+id/meditasiFragment"
+        android:orderInCategory="100"
+        android:title="Meditasi"
+        android:icon="@drawable/ic_launcher_background"/>
+
+
+    <item
+        android:id="@+id/diagnosisFragment"
+        android:icon="@drawable/ic_launcher_background"
+        android:orderInCategory="100"
+        android:title="Diagnosis" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_launcher_background"
+        android:orderInCategory="100"
+        android:title="Profile" />
+
+</menu>
