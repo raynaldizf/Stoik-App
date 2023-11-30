@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Custom Color -->
+    <color name="dodger_blue">#0487E2</color>
+    <color name="royal_blue">#0463CA</color>
+    <color name="powder_blue">#B0D6F5</color>
+    <color name="light_sky_blue">#65C2F5</color>
+    <color name="turkish_blue">#09B1EC</color>
+    <color name="dark_blue">#092C4C</color>
+    <color name="slate_gray">#515A6F</color>
 </resources>

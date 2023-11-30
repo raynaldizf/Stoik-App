@@ -1,4 +1,4 @@
-package com.app.stoikapp.view.authentication.login
+package com.app.stoikapp.view.splashscreen
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,25 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.app.stoikapp.R
-import com.app.stoikapp.databinding.FragmentLoginBinding
+import com.app.stoikapp.databinding.FragmentOnBoardingBinding
 
-class LoginFragment : Fragment() {
-    lateinit var binding : FragmentLoginBinding
-
+class OnBoardingFragment : Fragment() {
+    lateinit var binding : FragmentOnBoardingBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-            binding = FragmentLoginBinding.inflate(inflater, container, false)
-            return binding.root
+        binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnRegister.setOnClickListener{
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        binding.btnMulai.setOnClickListener{
+            findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
         }
     }
+
 }
