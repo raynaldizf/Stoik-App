@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.meditasi.MeditasiFragment">
+    tools:context=".view.edukasi.EdukasiQuestFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

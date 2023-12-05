@@ -11,4 +11,5 @@
     <color name="turkish_blue">#09B1EC</color>
     <color name="dark_blue">#092C4C</color>
     <color name="slate_gray">#515A6F</color>
+    <color name="background_color">#F7F4FA</color>
 </resources>

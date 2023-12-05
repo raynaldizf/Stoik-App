@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:elevation="0dp"
+    android:id="@+id/cardView"
+    android:backgroundTint="#B0D6F5"
+    app:cardCornerRadius="12dp">
+
+    <RelativeLayout
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/plusjakartasansbold"
+            android:text="Diagnosis"
+            android:textColor="@color/royal_blue"
+            android:textSize="18sp"
+            android:layout_alignParentStart="true"
+
+
+            />
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/plusjakartasanslight"-->
+<!--            android:text="1 hari"-->
+<!--            android:textColor="@color/royal_blue"-->
+<!--            android:textSize="18sp"-->
+<!--            android:layout_alignParentEnd="true"-->
+
+
+<!--            />-->
+
+        <TextView
+            android:id="@+id/deskrpsi"
+            android:layout_below="@id/header"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/plusjakartasanslight"
+            android:text="Hasil diagnosis kamu mengalami depresi tingkat sedang...."
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_alignParentEnd="true"
+
+
+            />
+
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

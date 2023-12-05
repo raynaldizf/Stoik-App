@@ -21,7 +21,11 @@
         android:id="@+id/diagnosisFragment"
         android:name="com.app.stoikapp.view.diagnosis.DiagnosisFragment"
         android:label="fragment_diagnosis"
-        tools:layout="@layout/fragment_diagnosis" />
+        tools:layout="@layout/fragment_diagnosis" >
+        <action
+            android:id="@+id/action_diagnosisFragment_to_diagnosisPeraturanFragment"
+            app:destination="@id/diagnosisPeraturanFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.app.stoikapp.view.profile.EditProfileFragment"
@@ -31,7 +35,14 @@
         android:id="@+id/historyFragment"
         android:name="com.app.stoikapp.view.history.HistoryFragment"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_historyBookingFragment"
+            app:destination="@id/historyBookingFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_historyDiagnosisFragment"
+            app:destination="@id/historyDiagnosisFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.app.stoikapp.view.authentication.login.LoginFragment"
@@ -40,12 +51,10 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/meditasiFragment"
-        android:name="com.app.stoikapp.view.meditasi.MeditasiFragment"
-        android:label="fragment_meditasi"
-        tools:layout="@layout/fragment_meditasi" />
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.app.stoikapp.view.authentication.register.RegisterFragment"
@@ -63,12 +72,25 @@
         <action
             android:id="@+id/action_profileFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.app.stoikapp.view.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_edukasiHomeFragment"
+            app:destination="@id/edukasiHomeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_diagnosisOnBoardingFragment"
+            app:destination="@id/diagnosisOnBoardingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
         android:name="com.app.stoikapp.view.splashscreen.OnBoardingFragment"
@@ -77,5 +99,119 @@
         <action
             android:id="@+id/action_onBoardingFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailPsikologFragment"
+        android:name="com.app.stoikapp.view.home.psikolog.DetailPsikologFragment"
+        android:label="fragment_detail_psikolog"
+        tools:layout="@layout/fragment_detail_psikolog" />
+    <fragment
+        android:id="@+id/psikologFragment"
+        android:name="com.app.stoikapp.view.home.psikolog.PsikologFragment"
+        android:label="fragment_psikolog"
+        tools:layout="@layout/fragment_psikolog" >
+        <action
+            android:id="@+id/action_psikologFragment_to_detailPsikologFragment"
+            app:destination="@id/detailPsikologFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailHistoryDiagnosisFragment"
+        android:name="com.app.stoikapp.view.history.DetailHistoryDiagnosisFragment"
+        android:label="fragment_detail_history_diagnosis"
+        tools:layout="@layout/fragment_detail_history_diagnosis" />
+    <fragment
+        android:id="@+id/detailHistoryPsikologiFragment"
+        android:name="com.app.stoikapp.view.history.DetailHistoryPsikologiFragment"
+        android:label="fragment_detail_history_psikologi"
+        tools:layout="@layout/fragment_detail_history_psikologi" />
+    <fragment
+        android:id="@+id/diagnosisPeraturanFragment"
+        android:name="com.app.stoikapp.view.diagnosis.DiagnosisPeraturanFragment"
+        android:label="fragment_diagnosis_peraturan"
+        tools:layout="@layout/fragment_diagnosis_peraturan" />
+    <fragment
+        android:id="@+id/edukasiHomeFragment"
+        android:name="com.app.stoikapp.view.edukasi.EdukasiHomeFragment"
+        android:label="fragment_edukasi_home"
+        tools:layout="@layout/fragment_edukasi_home" >
+        <action
+            android:id="@+id/action_edukasiHomeFragment_to_psikologFragment"
+            app:destination="@id/psikologFragment" />
+        <action
+            android:id="@+id/action_edukasiHomeFragment_to_edukasiMentalFragment"
+            app:destination="@id/edukasiMentalFragment" />
+        <action
+            android:id="@+id/action_edukasiHomeFragment_to_soundMeditasiFragment"
+            app:destination="@id/soundMeditasiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/edukasiQuestFragment"
+        android:name="com.app.stoikapp.view.edukasi.EdukasiQuestFragment"
+        android:label="fragment_edukasi_quest"
+        tools:layout="@layout/fragment_edukasi_quest" />
+    <fragment
+        android:id="@+id/edukasiMentalFragment"
+        android:name="com.app.stoikapp.view.edukasi.EdukasiMentalFragment"
+        android:label="fragment_edukasi_mental"
+        tools:layout="@layout/fragment_edukasi_mental" >
+        <action
+            android:id="@+id/action_edukasiMentalFragment_to_edukasiQuestFragment"
+            app:destination="@id/edukasiQuestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/edukasiQuestAnswerFragment"
+        android:name="com.app.stoikapp.view.edukasi.EdukasiQuestAnswerFragment"
+        android:label="fragment_edukasi_quest_answer"
+        tools:layout="@layout/fragment_edukasi_quest_answer" />
+    <fragment
+        android:id="@+id/hasilDiagnosisFragment"
+        android:name="com.app.stoikapp.view.diagnosis.HasilDiagnosisFragment"
+        android:label="fragment_hasil_diagnosis"
+        tools:layout="@layout/fragment_hasil_diagnosis" >
+        <action
+            android:id="@+id/action_hasilDiagnosisFragment_to_diagnosisFragment"
+            app:destination="@id/diagnosisFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/soundMeditasiFragment"
+        android:name="com.app.stoikapp.view.edukasi.SoundMeditasiFragment"
+        android:label="fragment_sound_meditasi"
+        tools:layout="@layout/fragment_sound_meditasi" >
+        <action
+            android:id="@+id/action_soundMeditasiFragment_to_musicPlayFragment"
+            app:destination="@id/musicPlayFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/diagnosisOnBoardingFragment"
+        android:name="com.app.stoikapp.view.diagnosis.DiagnosisOnBoardingFragment"
+        android:label="fragment_diagnosis_on_boarding"
+        tools:layout="@layout/fragment_diagnosis_on_boarding" >
+        <action
+            android:id="@+id/action_diagnosisOnBoardingFragment_to_hasilDiagnosisFragment"
+            app:destination="@id/hasilDiagnosisFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/musicPlayFragment"
+        android:name="com.app.stoikapp.view.edukasi.MusicPlayFragment"
+        android:label="fragment_music_play"
+        tools:layout="@layout/fragment_music_play" />
+    <fragment
+        android:id="@+id/historyBookingFragment"
+        android:name="com.app.stoikapp.view.history.HistoryBookingFragment"
+        android:label="fragment_history_booking"
+        tools:layout="@layout/fragment_history_booking" >
+        <action
+            android:id="@+id/action_historyBookingFragment_to_detailHistoryPsikologiFragment"
+            app:destination="@id/detailHistoryPsikologiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyDiagnosisFragment"
+        android:name="com.app.stoikapp.view.history.HistoryDiagnosisFragment"
+        android:label="fragment_history_diagnosis"
+        tools:layout="@layout/fragment_history_diagnosis" >
+        <action
+            android:id="@+id/action_historyDiagnosisFragment_to_detailHistoryDiagnosisFragment"
+            app:destination="@id/detailHistoryDiagnosisFragment" />
     </fragment>
 </navigation>

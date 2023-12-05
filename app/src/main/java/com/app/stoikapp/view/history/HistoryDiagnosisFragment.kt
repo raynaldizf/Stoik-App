@@ -1,4 +1,4 @@
-package com.app.stoikapp.view.meditasi
+package com.app.stoikapp.view.history
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,17 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.app.stoikapp.R
-import com.app.stoikapp.databinding.FragmentMeditasiBinding
+import com.app.stoikapp.databinding.FragmentHistoryBinding
+import com.app.stoikapp.databinding.FragmentHistoryDiagnosisBinding
 
-class MeditasiFragment : Fragment() {
-    lateinit var binding : FragmentMeditasiBinding
-
+class HistoryDiagnosisFragment : Fragment() {
+    lateinit var binding : FragmentHistoryDiagnosisBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentMeditasiBinding.inflate(inflater, container, false)
+        binding = FragmentHistoryDiagnosisBinding.inflate(inflater, container, false)
         return binding.root
     }
 
