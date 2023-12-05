@@ -102,6 +102,7 @@
                 android:backgroundTint="@color/dodger_blue"
                 android:fontFamily="@font/plusjakartasansextrabold"
                 android:text="Login"
+                app:cornerRadius="20dp"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

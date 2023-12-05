@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id){
-                R.id.homeFragment, R.id.meditasiFragment, R.id.diagnosisFragment, R.id.diagnosisFragment, R.id.profileFragment -> {
+                R.id.homeFragment, R.id.meditasiFragment, R.id.diagnosisFragment, R.id.diagnosisFragment, R.id.historyFragment, R.id.profileFragment -> {
                     showBottomNav()
                 }
                 else -> {

@@ -3,26 +3,32 @@
     <item
         android:id="@+id/homeFragment"
         android:orderInCategory="100"
-        android:title="Home"
-        android:icon="@drawable/ic_launcher_background"/>
+        android:title="Beranda"
+        android:icon="@drawable/home"/>
 
     <item
         android:id="@+id/meditasiFragment"
         android:orderInCategory="100"
         android:title="Meditasi"
-        android:icon="@drawable/ic_launcher_background"/>
+        android:icon="@drawable/headset"/>
 
 
     <item
         android:id="@+id/diagnosisFragment"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/fitness"
         android:orderInCategory="100"
         android:title="Diagnosis" />
 
     <item
-        android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_launcher_background"
+        android:id="@+id/historyFragment"
+        android:icon="@drawable/newspaper"
         android:orderInCategory="100"
-        android:title="Profile" />
+        android:title="Histori" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/person"
+        android:orderInCategory="100"
+        android:title="Profil" />
 
 </menu>
