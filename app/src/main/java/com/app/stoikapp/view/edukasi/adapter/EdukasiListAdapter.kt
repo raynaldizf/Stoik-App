@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.stoikapp.data.model.Edukasi
 import com.app.stoikapp.databinding.CustomEdukasiHomeBinding
 import com.app.stoikapp.databinding.CustomLayoutEdukasiBinding
+import com.bumptech.glide.Glide
 
 class EdukasiListAdapter(private val context: Context, private val materiList: MutableList<Edukasi>) :
     RecyclerView.Adapter<EdukasiListAdapter.ViewHolder>() {
@@ -24,6 +25,7 @@ class EdukasiListAdapter(private val context: Context, private val materiList: M
         val materi = materiList[position]
         holder.binding.deskripsi.text = truncateDescription(materi.deskripsi!!)
         holder.binding.judul.text = materi.judul
+        Glide.with(context).load(materi.gambar).into(holder.binding.imageView)
         holder.binding.cardView.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("materi", materi.path)
