@@ -1,6 +1,8 @@
 package com.app.stoikapp.view.edukasi.adapter
 
 import android.content.Context
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +23,10 @@ class EdukasiAdapter(private val context: Context, private val materiList: Mutab
         val materi = materiList[position]
         holder.binding.tvEdukasiDesc.text = truncateDescription(materi.deskripsi!!)
         holder.binding.tvEdukasi.text = materi.judul
+        holder.binding.cvEdukasi.setOnClickListener {
+            Log.d("EdukasiAdapter", "onBindViewHolder: ${materi.judul}")
+
+        }
     }
 
     private fun truncateDescription(description: String): String {
