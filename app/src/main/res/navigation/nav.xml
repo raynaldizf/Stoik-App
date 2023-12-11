@@ -42,6 +42,12 @@
         <action
             android:id="@+id/action_historyFragment_to_historyDiagnosisFragment"
             app:destination="@id/historyDiagnosisFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_detailHistoryPsikologiFragment"
+            app:destination="@id/detailHistoryPsikologiFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_detailHistoryDiagnosisFragment"
+            app:destination="@id/detailHistoryDiagnosisFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

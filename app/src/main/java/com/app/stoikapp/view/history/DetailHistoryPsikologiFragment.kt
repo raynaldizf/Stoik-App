@@ -23,5 +23,14 @@ class DetailHistoryPsikologiFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.nama.text = arguments?.getString("nama")
+        binding.psikolog.text = arguments?.getString("namaPsikolog")
+        binding.kodeBook.text = arguments?.getString("kodeBook")
+        binding.hari.text = arguments?.getString("hari")
+        binding.waktu.text = arguments?.getString("waktu")
+        binding.biaya.text = arguments?.getString("biaya")
+        binding.catatan .text = arguments?.getString("catatan")
+
     }
 }

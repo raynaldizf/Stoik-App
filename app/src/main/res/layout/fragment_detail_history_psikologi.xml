@@ -114,6 +114,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/nama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/plusjakartasanslight"
@@ -139,6 +140,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/psikolog"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/plusjakartasanslight"
@@ -164,6 +166,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/kodeBook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/plusjakartasanslight"
@@ -190,6 +193,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/hari"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/plusjakartasanslight"
@@ -216,6 +220,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/waktu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/plusjakartasanslight"
@@ -242,6 +247,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/biaya"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/plusjakartasanslight"
@@ -268,6 +274,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/catatan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/plusjakartasanslight"

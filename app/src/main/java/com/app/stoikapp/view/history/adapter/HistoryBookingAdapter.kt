@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.app.stoikapp.R
 import com.app.stoikapp.data.model.Booking
 import com.app.stoikapp.data.model.History
 import com.app.stoikapp.databinding.CustomLayoutHistoryBinding
@@ -37,7 +38,7 @@ class HistoryBookingAdapter(private val context: Context, private val bookingLis
             bundle.putString("waktu", bookings.waktu)
             bundle.putString("biaya", bookings.biaya)
             bundle.putString("catatan", bookings.catatan)
-            Navigation.findNavController(it).navigate(com.app.stoikapp.R.id.action_historyBookingFragment_to_detailHistoryPsikologiFragment, bundle)
+            Navigation.findNavController(it).navigate(R.id.action_historyFragment_to_detailHistoryPsikologiFragment, bundle)
         }
     }
     fun updateData(newData: List<Booking>) {
