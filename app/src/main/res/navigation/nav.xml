@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/splashScreenFragment">
+    app:startDestination="@id/edukasiMentalFragment">
 
     <fragment
         android:id="@+id/splashScreenFragment"
@@ -165,12 +165,19 @@
         <action
             android:id="@+id/action_edukasiHomeFragment_to_soundMeditasiFragment"
             app:destination="@id/soundMeditasiFragment" />
+        <action
+            android:id="@+id/action_edukasiHomeFragment_to_edukasiQuestFragment"
+            app:destination="@id/edukasiQuestFragment" />
     </fragment>
     <fragment
         android:id="@+id/edukasiQuestFragment"
         android:name="com.app.stoikapp.view.edukasi.EdukasiQuestFragment"
         android:label="fragment_edukasi_quest"
-        tools:layout="@layout/fragment_edukasi_quest" />
+        tools:layout="@layout/fragment_edukasi_quest" >
+        <action
+            android:id="@+id/action_edukasiQuestFragment_to_edukasiQuestAnswerFragment"
+            app:destination="@id/edukasiQuestAnswerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/edukasiMentalFragment"
         android:name="com.app.stoikapp.view.edukasi.EdukasiMentalFragment"
