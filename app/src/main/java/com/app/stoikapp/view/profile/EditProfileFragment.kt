@@ -3,10 +3,8 @@ package com.app.stoikapp.view.profile
 import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -21,31 +19,23 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.app.stoikapp.data.datastore.SharedPref
 import com.app.stoikapp.databinding.FragmentEditProfileBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import java.io.File
-import androidx.core.content.FileProvider
-import androidx.lifecycle.asLiveData
-import com.app.stoikapp.R
-import com.app.stoikapp.data.datastore.SharedPref
 import com.google.firebase.storage.StorageReference
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import java.util.UUID
 
 class EditProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     lateinit var binding: FragmentEditProfileBinding
     private lateinit var databaseRef: DatabaseReference
-    private lateinit var firebaseAuth: FirebaseAuth
     private val STORAGE_PERMISSION_CODE = 100
     private lateinit var selectedImageUri: String
     private lateinit var currentPhotoPath: String
@@ -71,7 +61,6 @@ class EditProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        firebaseAuth = FirebaseAuth.getInstance()
         databaseRef = FirebaseDatabase.getInstance().getReference("users")
         sharedPref = SharedPref(requireContext())
 
@@ -88,43 +77,47 @@ class EditProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         }
 
         binding.btnSimpan.setOnClickListener {
-            val userId = firebaseAuth.currentUser?.uid ?: ""
-            val fullName = binding.editTextNamaLengkap.text.toString()
-            val email = binding.editTextEmail.text.toString()
-            val birthDate = binding.editTextTanggalLahir.text.toString()
-            val gender = if (binding.radioButtonLakiLaki.isChecked) "Laki-Laki" else "Perempuan"
-            val phoneNumber = binding.editTextNomorTelepon.text.toString()
-            val password = binding.editTextPassword.text.toString()
-            val confirmPassword = binding.editTextKonfirmasiPassword.text.toString()
+            lifecycleScope.launchWhenStarted {
+                sharedPref.getUserId.collect{ userId ->
 
-            if (selectedImg != null && validateInput(
-                    fullName,
-                    email,
-                    birthDate,
-                    gender,
-                    phoneNumber,
-                    password,
-                    confirmPassword,
-                    selectedImg!!
-                )
-            ) {
-                updateProfile(
-                    userId,
-                    fullName,
-                    email,
-                    birthDate,
-                    phoneNumber,
-                    gender,
-                    password,
-                    selectedImg
-                )
-            } else {
-                Toast.makeText(requireContext(), "Please select an image", Toast.LENGTH_SHORT)
-                    .show()
+                    val userId = userId
+                    val fullName = binding.editTextNamaLengkap.text.toString()
+                    val email = binding.editTextEmail.text.toString()
+                    val birthDate = binding.editTextTanggalLahir.text.toString()
+                    val gender = if (binding.radioButtonLakiLaki.isChecked) "Laki-Laki" else "Perempuan"
+                    val phoneNumber = binding.editTextNomorTelepon.text.toString()
+                    val password = binding.editTextPassword.text.toString()
+                    val confirmPassword = binding.editTextKonfirmasiPassword.text.toString()
+
+                    if (selectedImg != null && validateInput(
+                            fullName,
+                            email,
+                            birthDate,
+                            gender,
+                            phoneNumber,
+                            password,
+                            confirmPassword,
+                            selectedImg!!
+                        )
+                    ) {
+                        updateProfileImageInFirebase(
+                            userId,
+                            fullName,
+                            email,
+                            birthDate,
+                            phoneNumber,
+                            gender,
+                            password,
+                            selectedImg
+                        )
+                    } else {
+                        Toast.makeText(requireContext(), "Please select an image", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                }
             }
         }
-
-
     }
 
     private fun startGallery() {
@@ -207,7 +200,7 @@ class EditProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding.editTextTanggalLahir.setText(formattedDate)
     }
 
-    private fun updateProfile(
+    private fun updateProfileImageInFirebase(
         userId: String,
         name: String,
         email: String,
@@ -217,49 +210,32 @@ class EditProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         password: String,
         imageUri: Uri?
     ) {
-        val userDatabaseRef = FirebaseDatabase.getInstance().getReference("users")
-            .child(userId)
-
-        val updatedUserData = HashMap<String, Any>()
-        updatedUserData["fullName"] = name
-        updatedUserData["email"] = email
-        updatedUserData["birthDate"] = dateOfBirth
-        updatedUserData["phoneNumber"] = phoneNumber
-        updatedUserData["gender"] = gender
-        updatedUserData["password"] = password
-
-        userDatabaseRef.updateChildren(updatedUserData)
-            .addOnSuccessListener {
-                Log.d("Firebase Database", "User data updated successfully")
-                if (imageUri != null) {
-                    updateProfileImageInFirebaseAuth(userId, imageUri)
-                }
-                if (password.isNotEmpty()) {
-                    updatePassword(password)
-                }
-            }
-            .addOnFailureListener { e ->
-                Log.e("Firebase Database", "Error updating user data", e)
-            }
-    }
-
-    private fun updatePassword(newPassword: String) {
-        firebaseAuth.currentUser?.updatePassword(newPassword)
-            ?.addOnSuccessListener {
-                Log.d("Firebase Auth", "Password updated successfully")
-            }
-            ?.addOnFailureListener { e ->
-                Log.e("Firebase Auth", "Error updating password", e)
-            }
-    }
-
-    private fun updateProfileImageInFirebaseAuth(userId: String, imageUri: Uri) {
         val storageRef = FirebaseStorage.getInstance().getReference("profile_images").child(userId)
-        storageRef.putFile(imageUri)
+        storageRef.putFile(imageUri!!)
             .addOnSuccessListener { taskSnapshot ->
                 storageRef.downloadUrl
                     .addOnSuccessListener { downloadUrl ->
+
                         println("File uploaded successfully. Download URL: $downloadUrl")
+                        val userDatabaseRef = FirebaseDatabase.getInstance().getReference("users")
+                            .child(userId)
+
+                        val updatedUserData = HashMap<String, Any>()
+                        updatedUserData["fullName"] = name
+                        updatedUserData["email"] = email
+                        updatedUserData["birthDate"] = dateOfBirth
+                        updatedUserData["phoneNumber"] = phoneNumber
+                        updatedUserData["gender"] = gender
+                        updatedUserData["password"] = password
+                        updatedUserData["profilePicture"] = downloadUrl.toString()
+
+                        userDatabaseRef.updateChildren(updatedUserData)
+                            .addOnSuccessListener {
+                                Log.d("Firebase Database", "User data updated successfully")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e("Firebase Database", "Error updating user data", e)
+                            }
                     }
                     .addOnFailureListener { exception ->
                         println("Failed to get download URL. Error: ${exception.message}")
