@@ -137,19 +137,29 @@ class DiagnosisFragment : Fragment() {
     }
 
     private fun hitungCFCombine(jawabanMap: Map<String, Double>): Double {
-        var cfCombine = 0.0
+        val cfMap: MutableMap<String, Double> = mutableMapOf()
+
         for ((gejala, jawaban) in jawabanMap) {
             val basisPengetahuanModel = basisPengetahuan.find { it.gejala == gejala }
             if (basisPengetahuanModel != null) {
-                cfCombine = if (cfCombine == 0.0) {
-                    jawaban
-                } else {
-                    cfCombine + jawaban * (1 - cfCombine)
-                }
+                cfMap[gejala] = jawaban
             }
         }
+
+        return combineCF(cfMap.values.toDoubleArray())
+    }
+
+    private fun combineCF(cfArray: DoubleArray): Double {
+        val n = cfArray.size
+        var cfCombine = cfArray[0]
+
+        for (i in 1 until n) {
+            cfCombine = cfCombine + cfArray[i] * (1 - cfCombine)
+        }
+
         return cfCombine
     }
+
 
 
 
@@ -189,10 +199,10 @@ class DiagnosisFragment : Fragment() {
     private fun cfFromJawaban(jawaban: String): Double {
         return when (jawaban) {
             "tidak" -> 0.0
-            "mungkin" -> 0.2
-            "kemungkinanBesar" -> 0.4
-            "hampirPasti" -> 0.6
-            "pasti" -> 0.8
+            "mungkin" -> 0.4
+            "kemungkinanBesar" -> 0.6
+            "hampirPasti" -> 0.8
+            "pasti" -> 1.0
             else -> 0.0
         }
     }
