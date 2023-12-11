@@ -96,6 +96,18 @@
         <action
             android:id="@+id/action_homeFragment_to_diagnosisOnBoardingFragment"
             app:destination="@id/diagnosisOnBoardingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_soundMeditasiFragment"
+            app:destination="@id/soundMeditasiFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_musicPlayFragment"
+            app:destination="@id/musicPlayFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_psikologFragment"
+            app:destination="@id/psikologFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailPsikologFragment"
+            app:destination="@id/detailPsikologFragment" />
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
