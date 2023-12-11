@@ -5,15 +5,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.app.stoikapp.R
+import com.app.stoikapp.data.datastore.SharedPref
 import com.app.stoikapp.data.model.BasisPengetahuanModel
 import com.app.stoikapp.databinding.FragmentDiagnosisBinding
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class DiagnosisFragment : Fragment() {
     private lateinit var binding: FragmentDiagnosisBinding
-    private var hasil : String  = ""
+    private var hasil: String = ""
+    lateinit var sharedPref: SharedPref
     private val gejalaList = listOf(
         "GJ01", "GJ02", "GJ03", "GJ04", "GJ05", "GJ06", "GJ07", "GJ08",
         "GJ09", "GJ10", "GJ11", "GJ12", "GJ13", "GJ14", "GJ15", "GJ16",
@@ -52,7 +60,8 @@ class DiagnosisFragment : Fragment() {
         BasisPengetahuanModel("GJ28", 0.0, 0.0, 0.6, 0.0),
         BasisPengetahuanModel("GJ29", 0.0, 0.0, 0.0, 0.8)
     )
-
+    private lateinit var database: FirebaseDatabase
+    private lateinit var databaseReference: DatabaseReference
     private val jawabanMap: MutableMap<String, Double> = mutableMapOf()
     private var gejalaIndex = 0
     private var currentGejala = ""
@@ -67,10 +76,39 @@ class DiagnosisFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPref = SharedPref(requireContext())
+        setupFirebase()
         setupButtonListeners()
         showNextQuestion()
     }
+    private fun setupFirebase() {
+        lifecycleScope.launch {
+            sharedPref.getUserId.collect{userId ->
+                Log.d("DiagnosisFragment", "User ID: $userId")
+                database = FirebaseDatabase.getInstance()
+                databaseReference = database.getReference("history/diagnosis").child(userId)
+            }
+        }
 
+    }
+
+    private fun pushDiagnosisToFirebase(hasilDiagnosa: String, solusi: String) {
+        val diagnosisKey = databaseReference.push().key
+        if (diagnosisKey != null) {
+            val diagnosisDetails = mapOf(
+                "diagnosa" to hasilDiagnosa,
+                "solusi" to solusi,
+            )
+
+            databaseReference.child(diagnosisKey).setValue(diagnosisDetails)
+                .addOnSuccessListener {
+                    Log.d("DiagnosisFragment", "Diagnosis result pushed to Firebase successfully")
+                }
+                .addOnFailureListener {
+                    Log.e("DiagnosisFragment", "Failed to push diagnosis result to Firebase: $it")
+                }
+        }
+    }
     private fun setupButtonListeners() {
         binding.tidak.setOnClickListener { onButtonClicked("tidak") }
         binding.mungkin.setOnClickListener { onButtonClicked("mungkin") }
@@ -146,7 +184,7 @@ class DiagnosisFragment : Fragment() {
             }
         }
 
-        return combineCF(cfMap.values.toDoubleArray())
+        return if (cfMap.isNotEmpty()) combineCF(cfMap.values.toDoubleArray()) else 0.0
     }
 
     private fun combineCF(cfArray: DoubleArray): Double {
@@ -160,41 +198,56 @@ class DiagnosisFragment : Fragment() {
         return cfCombine
     }
 
-
-
-
     private fun tampilkanHasilDiagnosa(hasilDiagnosa: Double) {
         val bundle = Bundle()
+        var solusi = ""
         when {
             hasilDiagnosa >= 0.1 && hasilDiagnosa <= 0.2 -> {
-                hasil = "Anda mungkin mengalami Gangguan Mood. Segera konsultasikan dengan dokter."
+                hasil = "Anda mengalami Gangguan Mood. Segera konsultasikan dengan dokter."
+                solusi =
+                    "Berusahalah untuk tidak menarik diri dari orang-orang terdekat. Tetaplah berkomunikasi dengan keluarga dan para sahabat, karena mereka yang mencintaimu pasti akan siap membantu kamu mengatasi depresi."
+
             }
 
             hasilDiagnosa >= 0.3 && hasilDiagnosa <= 0.4 -> {
-                hasil = "Anda mungkin mengalami Depresi Ringan. Tetap perhatikan kesehatan Anda."
+                hasil = "Anda mengalami Depresi Ringan. Tetap perhatikan kesehatan Anda."
+                solusi =
+                    "Untuk mengatasi depresi, kamu perlu melakukan hal-hal yang membuatmu rileks dan berenergi. Hal itu termasuk gaya hidup sehat, belajar untuk mengelola stres dengan baik, dan menjadwalkan kegiatan yang menyenangkan."
+
             }
 
             hasilDiagnosa >= 0.5 && hasilDiagnosa <= 0.7 -> {
-                hasil = "Anda mungkin mengalami Depresi Sedang. Segera konsultasikan dengan dokter."
+                hasil = "Anda mengalami Depresi Sedang. Segera konsultasikan dengan dokter."
+                solusi =
+                    "Tingkatkan suasana hati kamu dengan makanan yang kaya akan asam lemak omega-3. Nutrisi tersebut berperan penting dalam menstabilkan mood. Sumber terbaik untuk asam lemak omega-3 adalah salmon, sarden, tuna, atau suplemen minyak ikan."
+
             }
 
             hasilDiagnosa >= 0.8 && hasilDiagnosa <= 1.0 -> {
-                hasil = "Anda mungkin mengalami Depresi Berat. Segera dapatkan pertolongan medis segera."
+                hasil = "Anda mengalami Depresi Berat. Segera dapatkan pertolongan medis segera."
+                solusi =
+                    "Tidur atau istirahat yang cukup untuk mencegah mood swing. Menerapkan pola makan sehat dan bergizi seimbang. Bila perlu, perbanyak konsumsi makanan untuk mengatasi depresi. Melakukan aktivitas fisik dan berolahraga secara teratur. Melakukan cara sehat untuk mengelola stres, seperti menjalankan hobi, pijat, meditasi, atau bermain dengan hewan peliharaan. Menghindari konsumsi alkohol dan obat-obatan terlarang."
             }
 
             else -> {
                 hasil = "Hasil diagnosa tidak dapat ditentukan. Segera konsultasikan dengan dokter."
+                solusi =
+                    "Hasil diagnosa tidak dapat ditentukan. Segera konsultasikan dengan dokter."
             }
         }
 
-        bundle.putString("hasilDiagnosa", hasil)
-//        findNavController().navigate(
-//            R.id.action_diagnosisFragment_to_hasilDiagnosisFragment,
-//            bundle
-//        )
-        Log.d("hasilDiagnosa", hasilDiagnosa.toString())
-    }
+        pushDiagnosisToFirebase(hasil, solusi)
 
+        bundle.putString("hasilDiagnosa", hasil)
+        bundle.putString("solusi", solusi)
+        Log.d("hasilDiagnosa", hasilDiagnosa.toString())
+        Toast.makeText(context, "Diagnosis Berhasil", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(
+            R.id.action_diagnosisFragment_to_hasilDiagnosisFragment,
+            bundle
+        )
+
+    }
 
     private fun cfFromJawaban(jawaban: String): Double {
         return when (jawaban) {

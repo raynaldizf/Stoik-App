@@ -189,7 +189,11 @@
         android:id="@+id/hasilDiagnosisFragment"
         android:name="com.app.stoikapp.view.diagnosis.HasilDiagnosisFragment"
         android:label="fragment_hasil_diagnosis"
-        tools:layout="@layout/fragment_hasil_diagnosis" />
+        tools:layout="@layout/fragment_hasil_diagnosis" >
+        <action
+            android:id="@+id/action_hasilDiagnosisFragment_to_diagnosisOnBoardingFragment"
+            app:destination="@id/diagnosisOnBoardingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/soundMeditasiFragment"
         android:name="com.app.stoikapp.view.edukasi.SoundMeditasiFragment"
