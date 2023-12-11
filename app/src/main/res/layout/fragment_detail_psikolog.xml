@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/plusjakartasansextrabold"
                     android:gravity="center_horizontal"
-                    android:text="Edit Profile"
+                    android:text="Detail Psikolog"
                     android:textColor="@color/royal_blue"
                     android:textSize="20sp"
                     tools:ignore="MissingConstraints" />

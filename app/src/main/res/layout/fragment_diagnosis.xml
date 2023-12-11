@@ -27,16 +27,19 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
-                android:layout_marginTop="70dp"
+                android:id="@+id/textViewPertanyaan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
                 android:fontFamily="@font/plusjakartasansextrabold"
                 android:text="Apakah Anda sering merasa sedih atau memiliki mood yang buruk?"
                 android:textAlignment="center"
                 android:textColor="@color/royal_blue"
                 android:textSize="20sp" />
 
+
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/tidak"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
@@ -48,6 +51,7 @@
                 />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/mungkin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -59,6 +63,7 @@
                 />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/kemungkinanBesar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -70,17 +75,19 @@
                 />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/hampirPasti"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/royal_blue"
                 android:padding="14dp"
-                android:text="Hamir Pasti"
+                android:text="Hampir Pasti"
                 app:cornerRadius="20dp"
 
                 />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/pasti"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
