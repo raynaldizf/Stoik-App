@@ -47,12 +47,12 @@
                     android:layout_weight="1"
                     android:layout_marginStart="25dp"
                     android:fontFamily="@font/plusjakartasansbold"
-                    android:text="Sound Relax"
+                    android:text="Edukasi"
                     android:textColor="@color/royal_blue"
                     android:textSize="15sp"/>
 
                 <TextView
-                    android:id="@+id/btnDetailSound"
+                    android:id="@+id/btnEdukasi"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -88,12 +88,12 @@
                     android:layout_weight="1"
                     android:layout_marginStart="25dp"
                     android:fontFamily="@font/plusjakartasansbold"
-                    android:text="Psikolog Terdekat"
+                    android:text="Meditasi"
                     android:textColor="@color/royal_blue"
                     android:textSize="15sp"/>
 
                 <TextView
-                    android:id="@+id/btnDetailPsikolog"
+                    android:id="@+id/btnDetailSound"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -106,7 +106,7 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/psikologTerdekat"
+                android:id="@+id/soudMeditasi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"

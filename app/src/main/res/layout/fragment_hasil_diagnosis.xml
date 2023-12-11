@@ -58,6 +58,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/hasilDiagnosis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Depresi Sedang"
@@ -71,11 +72,12 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/solusi"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/plusjakartasanslight"
-                android:text="kurang percaya diri dan/atau harga diri, mengakibatkan kurangnya motivasi untuk melakukan sesuatu. Sering kali seseorang mengkhawatirkan hal-hal sensitif yang tidak perlu dan cenderung merasa sakit hati atau tersinggung dalam hubungan pribadi"
+                android:text="Berhentilah berteman!!!"
                 android:textAlignment="inherit"
                 android:textColor="@color/black"
                 android:textSize="16sp"

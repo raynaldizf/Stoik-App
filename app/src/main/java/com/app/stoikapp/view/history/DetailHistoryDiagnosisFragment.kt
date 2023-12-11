@@ -21,5 +21,10 @@ class DetailHistoryDiagnosisFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//                  bundle.putString("diagnosa", diagnosis.diagnosa)
+//            bundle.putString("solusi", diagnosis.solusi)
+
+        binding.txtHasilDiagnosa.text = arguments?.getString("diagnosa")
+        binding.txtSolusi.text = arguments?.getString("solusi")
     }
 }

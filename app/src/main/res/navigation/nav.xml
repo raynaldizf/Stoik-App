@@ -23,8 +23,8 @@
         android:label="fragment_diagnosis"
         tools:layout="@layout/fragment_diagnosis" >
         <action
-            android:id="@+id/action_diagnosisFragment_to_diagnosisPeraturanFragment"
-            app:destination="@id/diagnosisPeraturanFragment" />
+            android:id="@+id/action_diagnosisFragment_to_hasilDiagnosisFragment"
+            app:destination="@id/hasilDiagnosisFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -146,7 +146,11 @@
         android:id="@+id/diagnosisPeraturanFragment"
         android:name="com.app.stoikapp.view.diagnosis.DiagnosisPeraturanFragment"
         android:label="fragment_diagnosis_peraturan"
-        tools:layout="@layout/fragment_diagnosis_peraturan" />
+        tools:layout="@layout/fragment_diagnosis_peraturan" >
+        <action
+            android:id="@+id/action_diagnosisPeraturanFragment_to_diagnosisFragment"
+            app:destination="@id/diagnosisFragment" />
+    </fragment>
     <fragment
         android:id="@+id/edukasiHomeFragment"
         android:name="com.app.stoikapp.view.edukasi.EdukasiHomeFragment"
@@ -185,11 +189,7 @@
         android:id="@+id/hasilDiagnosisFragment"
         android:name="com.app.stoikapp.view.diagnosis.HasilDiagnosisFragment"
         android:label="fragment_hasil_diagnosis"
-        tools:layout="@layout/fragment_hasil_diagnosis" >
-        <action
-            android:id="@+id/action_hasilDiagnosisFragment_to_diagnosisFragment"
-            app:destination="@id/diagnosisFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_hasil_diagnosis" />
     <fragment
         android:id="@+id/soundMeditasiFragment"
         android:name="com.app.stoikapp.view.edukasi.SoundMeditasiFragment"
@@ -206,8 +206,8 @@
         android:label="fragment_diagnosis_on_boarding"
         tools:layout="@layout/fragment_diagnosis_on_boarding" >
         <action
-            android:id="@+id/action_diagnosisOnBoardingFragment_to_hasilDiagnosisFragment"
-            app:destination="@id/hasilDiagnosisFragment" />
+            android:id="@+id/action_diagnosisOnBoardingFragment_to_diagnosisPeraturanFragment"
+            app:destination="@id/diagnosisPeraturanFragment" />
     </fragment>
     <fragment
         android:id="@+id/musicPlayFragment"
