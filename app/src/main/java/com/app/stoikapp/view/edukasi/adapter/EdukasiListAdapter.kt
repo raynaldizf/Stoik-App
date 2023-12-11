@@ -1,8 +1,10 @@
 package com.app.stoikapp.view.edukasi.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.app.stoikapp.data.model.Edukasi
 import com.app.stoikapp.databinding.CustomEdukasiHomeBinding
@@ -22,6 +24,12 @@ class EdukasiListAdapter(private val context: Context, private val materiList: M
         val materi = materiList[position]
         holder.binding.deskripsi.text = truncateDescription(materi.deskripsi!!)
         holder.binding.judul.text = materi.judul
+        holder.binding.cardView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("materi", materi.path)
+            bundle.putString("judul", materi.judul)
+            Navigation.findNavController(it).navigate(com.app.stoikapp.R.id.action_edukasiMentalFragment_to_edukasiQuestFragment, bundle)
+        }
     }
 
     private fun truncateDescription(description: String): String {

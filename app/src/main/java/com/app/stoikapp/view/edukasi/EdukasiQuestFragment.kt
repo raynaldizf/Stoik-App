@@ -28,10 +28,12 @@ class EdukasiQuestFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val judul = arguments?.getString("judul")
+        val path = arguments?.getString("materi")
+        binding.textViewTitle.text = judul
 
         // Inisialisasi database reference
-        databaseReference = FirebaseDatabase.getInstance().reference.child("edukasi/ocd/materi")
+        databaseReference = FirebaseDatabase.getInstance().reference.child("edukasi/${path}/materi")
 
         // Inisialisasi RecyclerView dan adapter
         val materiAdapter = MateriAdapter(requireContext(), mutableListOf()) // Sesuaikan dengan struktur adapter Anda

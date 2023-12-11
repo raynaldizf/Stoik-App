@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.app.stoikapp.data.model.Edukasi
 import com.app.stoikapp.databinding.CustomEdukasiHomeBinding
@@ -24,7 +25,10 @@ class EdukasiAdapter(private val context: Context, private val materiList: Mutab
         holder.binding.tvEdukasiDesc.text = truncateDescription(materi.deskripsi!!)
         holder.binding.tvEdukasi.text = materi.judul
         holder.binding.cvEdukasi.setOnClickListener {
-            Log.d("EdukasiAdapter", "onBindViewHolder: ${materi.judul}")
+            val bundle = Bundle()
+            bundle.putString("materi", materi.path)
+            bundle.putString("judul", materi.judul)
+            Navigation.findNavController(it).navigate(com.app.stoikapp.R.id.action_edukasiHomeFragment_to_edukasiQuestFragment, bundle)
 
         }
     }
