@@ -33,7 +33,7 @@ class MeditasiAdapter(private val context: Context, private val meditasiList: Mu
             bundle.putString("pencipta", meditasiSong.pencipta)
             bundle.putString("banner", meditasiSong.banner)
             bundle.putString("url", meditasiSong.link_lagu)
-            Navigation.findNavController(it).navigate(com.app.stoikapp.R.id.action_soundMeditasiFragment_to_musicPlayFragment, bundle)
+            Navigation.findNavController(it).navigate(com.app.stoikapp.R.id.action_edukasiHomeFragment_to_musicPlayFragment, bundle)
         }
     }
 

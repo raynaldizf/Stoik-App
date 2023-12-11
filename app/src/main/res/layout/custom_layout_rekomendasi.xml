@@ -61,7 +61,7 @@
                 android:text="Lihat"
                 android:fontFamily="@font/plusjakartasansmedium"
                 android:textColor="#092C4C"
-                android:backgroundTint="#D9D9D9"
+                android:backgroundTint="@color/white"
 
                 />
         </LinearLayout>

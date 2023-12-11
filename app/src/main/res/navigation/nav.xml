@@ -168,6 +168,9 @@
         <action
             android:id="@+id/action_edukasiHomeFragment_to_edukasiQuestFragment"
             app:destination="@id/edukasiQuestFragment" />
+        <action
+            android:id="@+id/action_edukasiHomeFragment_to_musicPlayFragment"
+            app:destination="@id/musicPlayFragment" />
     </fragment>
     <fragment
         android:id="@+id/edukasiQuestFragment"
