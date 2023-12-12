@@ -10,14 +10,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.app.stoikapp.data.datastore.SharedPref
-import com.app.stoikapp.data.model.Booking
 import com.app.stoikapp.databinding.FragmentDetailPsikologBinding
 import com.bumptech.glide.Glide
-import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+
 
 class DetailPsikologFragment : Fragment() {
     private lateinit var sharedPref: SharedPref
@@ -36,6 +35,7 @@ class DetailPsikologFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPref = SharedPref(requireContext())
+
 
         lifecycleScope.launchWhenStarted {
             sharedPref.getFullName.collect { fullName ->
@@ -82,40 +82,44 @@ class DetailPsikologFragment : Fragment() {
             sabtuMingguTxt.text = sabtuMinggu
             Glide.with(requireContext()).load(profile).into(btnEditProfile)
 
-            btnBookNow.setOnClickListener {
-                lifecycleScope.launchWhenStarted {
-                    sharedPref.getUserId.collect { id ->
-                        userId = id
+            btnBookNow.setOnClickListener{
 
-                        val bookingId = FirebaseDatabase.getInstance().getReference("history/booking").child(userId)
-                            .push().key
-
-                        val selectedTime = editWaktu.text.toString()
-                        val catatan = editCatatan.text.toString()
-
-                        val time = extractTime(selectedTime)
-
-                        val booking = Booking(
-                            nama = namaUser,
-                            namaPsikolog = nama,
-                            kodeBook = bookingId,
-                            hari = formattedDate,
-                            waktu = time,
-                            biaya = harga.toString(),
-                            catatan = catatan
-                        )
-
-                        val databaseReference =
-                            FirebaseDatabase.getInstance().getReference("history/booking").child(userId)
-                                .child(bookingId ?: "")
-                        databaseReference.setValue(booking).addOnSuccessListener {
-                            Log.d("Booking", "Booking added to history with ID: $bookingId")
-                        }.addOnFailureListener {
-                            Log.e("Booking", "Failed to add booking to history")
-                        }
-                    }
-                }
             }
+
+//            btnBookNow.setOnClickListener {
+//                lifecycleScope.launchWhenStarted {
+//                    sharedPref.getUserId.collect { id ->
+//                        userId = id
+//
+//                        val bookingId = FirebaseDatabase.getInstance().getReference("history/booking").child(userId)
+//                            .push().key
+//
+//                        val selectedTime = editWaktu.text.toString()
+//                        val catatan = editCatatan.text.toString()
+//
+//                        val time = extractTime(selectedTime)
+//
+//                        val booking = Booking(
+//                            nama = namaUser,
+//                            namaPsikolog = nama,
+//                            kodeBook = bookingId,
+//                            hari = formattedDate,
+//                            waktu = time,
+//                            biaya = harga.toString(),
+//                            catatan = catatan
+//                        )
+//
+//                        val databaseReference =
+//                            FirebaseDatabase.getInstance().getReference("history/booking").child(userId)
+//                                .child(bookingId ?: "")
+//                        databaseReference.setValue(booking).addOnSuccessListener {
+//                            Log.d("Booking", "Booking added to history with ID: $bookingId")
+//                        }.addOnFailureListener {
+//                            Log.e("Booking", "Failed to add booking to history")
+//                        }
+//                    }
+//                }
+//            }
         }
     }
 

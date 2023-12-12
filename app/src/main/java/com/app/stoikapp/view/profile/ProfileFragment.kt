@@ -79,7 +79,6 @@ class ProfileFragment : Fragment() {
 
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                // Assuming User class for your data model
                 val user = snapshot.getValue(User::class.java)
                 if (user != null) {
                     binding.userName.text = user.fullName
@@ -89,7 +88,6 @@ class ProfileFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle error
             }
         })
     }

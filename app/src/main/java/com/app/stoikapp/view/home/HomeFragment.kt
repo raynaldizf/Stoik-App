@@ -5,18 +5,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.stoikapp.R
 import com.app.stoikapp.data.datastore.SharedPref
 import com.app.stoikapp.data.model.MeditasiSong
 import com.app.stoikapp.data.model.Psikolog
+import com.app.stoikapp.data.model.User
 import com.app.stoikapp.databinding.FragmentHomeBinding
 import com.app.stoikapp.view.home.adapter.HomePsikologAdapter
 import com.app.stoikapp.view.home.psikolog.adapter.PsikologAdapter
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -38,12 +43,21 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPref = SharedPref(requireContext())
+
+        lifecycleScope.launch {
+            // Collect the userId value
+            sharedPref.getUserId.collect { id ->
+                fetchUserDetails(id)
+            }
+        }
         databaseReferenceMeditasi = FirebaseDatabase.getInstance().getReference("meditasi")
         databaseReferencePsikolog = FirebaseDatabase.getInstance().getReference("psikolog")
 
-        binding.soundRelax.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.soundRelax.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        binding.psikologTerdekat.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.psikologTerdekat.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         soundAdapter = SoundAdapter(requireContext(), mutableListOf())
         psikologAdapter = HomePsikologAdapter(requireContext(), mutableListOf())
@@ -58,7 +72,7 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_soundMeditasiFragment)
         }
 
-        binding.btnDetailPsikolog.setOnClickListener{
+        binding.btnDetailPsikolog.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_psikologFragment)
         }
     }
@@ -96,6 +110,23 @@ class HomeFragment : Fragment() {
                 }
 
                 psikologAdapter.updateData(psikologList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
+    private fun fetchUserDetails(userId: String) {
+        val databaseReference: DatabaseReference =
+            FirebaseDatabase.getInstance().getReference("users").child(userId)
+
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val user = snapshot.getValue(User::class.java)
+                if (user != null) {
+                    binding.txtUser.text = user.fullName
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
