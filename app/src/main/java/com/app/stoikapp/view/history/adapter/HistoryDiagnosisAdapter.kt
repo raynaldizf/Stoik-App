@@ -26,14 +26,21 @@ class HistoryDiagnosisAdapter(private val context: Context, private val diagnosa
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val diagnosis = diagnosaList[position]
-        holder.binding.header.text = diagnosis.diagnosa
-        holder.binding.deskrpsi.text = diagnosis.solusi
+        holder.binding.header.text = truncateDescription(diagnosis.diagnosa!!)
+        holder.binding.deskrpsi.text = truncateDescription(diagnosis.solusi!!)
         holder.binding.cardView.setOnClickListener{
             val bundle = Bundle()
             bundle.putString("diagnosa", diagnosis.diagnosa)
             bundle.putString("solusi", diagnosis.solusi)
             Navigation.findNavController(it).navigate(R.id.action_historyFragment_to_detailHistoryDiagnosisFragment, bundle)
         }
+    }
+
+    private fun truncateDescription(description: String): String {
+        val words = description.split(" ")
+        val truncatedWords = if (words.size > 7) words.subList(0, 7) else words
+        val truncatedText = truncatedWords.joinToString(" ") { it }
+        return if (words.size > 7) "$truncatedText ..." else truncatedText
     }
     fun updateData(newData: List<Diagnosis>) {
         diagnosaList.clear()

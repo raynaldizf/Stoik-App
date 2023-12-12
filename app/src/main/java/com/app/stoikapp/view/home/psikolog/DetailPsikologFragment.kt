@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.midtrans.sdk.corekit.core.MidtransSDK
 import com.midtrans.sdk.corekit.core.TransactionRequest
 import com.midtrans.sdk.corekit.core.themes.CustomColorTheme
+import com.midtrans.sdk.corekit.models.ShippingAddress
 import com.midtrans.sdk.corekit.models.snap.TransactionResult
 import com.midtrans.sdk.uikit.SdkUIFlowBuilder
 import retrofit2.Call
@@ -217,6 +218,7 @@ class DetailPsikologFragment : Fragment() {
         customerDetail.phone = "081234567890"
 
         transactionRequest.customerDetails = customerDetail
+
     }
 
     private fun getSnapToken() {
