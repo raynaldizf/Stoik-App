@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.app.stoikapp.R
 import com.app.stoikapp.databinding.FragmentDetailHistoryPsikologiBinding
 
@@ -31,6 +32,10 @@ class DetailHistoryPsikologiFragment : Fragment() {
         binding.waktu.text = arguments?.getString("waktu")
         binding.biaya.text = arguments?.getString("biaya")
         binding.catatan .text = arguments?.getString("catatan")
+
+        binding.btnBack.setOnClickListener{
+            findNavController().navigateUp()
+        }
 
     }
 }

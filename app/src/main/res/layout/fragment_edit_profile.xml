@@ -55,6 +55,7 @@
 
 
     <ScrollView
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -278,12 +279,13 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSimpan"
                 android:layout_width="match_parent"
-                android:layout_height="67dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="40dp"
                 android:backgroundTint="@color/dodger_blue"
                 android:fontFamily="@font/plusjakartasansextrabold"
                 android:text="Simpan"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 app:cornerRadius="20dp" />
 
         </LinearLayout>

@@ -28,6 +28,10 @@ class DiagnosisPeraturanFragment : Fragment() {
             findNavController().navigate(R.id.action_diagnosisPeraturanFragment_to_diagnosisFragment)
 
         }
+
+        binding.btnBack.setOnClickListener{
+            findNavController().navigateUp()
+        }
     }
 
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.app.stoikapp.R
 import com.app.stoikapp.databinding.FragmentDetailHistoryDiagnosisBinding
 
@@ -26,5 +27,8 @@ class DetailHistoryDiagnosisFragment : Fragment() {
 
         binding.txtHasilDiagnosa.text = arguments?.getString("diagnosa")
         binding.txtSolusi.text = arguments?.getString("solusi")
+        binding.btnBack.setOnClickListener{
+            findNavController().navigateUp()
+        }
     }
 }

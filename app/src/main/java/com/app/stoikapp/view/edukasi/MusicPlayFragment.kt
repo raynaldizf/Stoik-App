@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.app.stoikapp.databinding.FragmentMusicPlayBinding
 import com.bumptech.glide.Glide
 import java.io.IOException
@@ -40,6 +41,10 @@ class MusicPlayFragment : Fragment() {
                 .load(banner)
                 .into(binding.imageView)
             toolbarJudul.text = judul
+
+            btnBack.setOnClickListener{
+                findNavController().navigateUp()
+            }
         }
 
         mediaPlayer = MediaPlayer()

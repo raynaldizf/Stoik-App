@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.stoikapp.data.model.Materi
 import com.app.stoikapp.data.model.SubMateri
@@ -32,16 +33,17 @@ class EdukasiQuestFragment : Fragment() {
         val path = arguments?.getString("materi")
         binding.textViewTitle.text = judul
 
-        // Inisialisasi database reference
         databaseReference = FirebaseDatabase.getInstance().reference.child("edukasi/${path}/materi")
 
-        // Inisialisasi RecyclerView dan adapter
-        val materiAdapter = MateriAdapter(requireContext(), mutableListOf()) // Sesuaikan dengan struktur adapter Anda
+        val materiAdapter = MateriAdapter(requireContext(), mutableListOf())
         binding.recyclerViewQuest.adapter = materiAdapter
         binding.recyclerViewQuest.layoutManager = LinearLayoutManager(requireContext())
 
-        // Mendapatkan data dari Firebase dan memasukkannya ke dalam adapter
         readDataFromFirebase()
+
+        binding.btnBack.setOnClickListener{
+            findNavController().navigateUp()
+        }
     }
 
     private fun readDataFromFirebase() {
@@ -52,18 +54,15 @@ class EdukasiQuestFragment : Fragment() {
                 for (materiSnapshot in dataSnapshot.children) {
                     val judul = materiSnapshot.child("judul").getValue(String::class.java)
                     val penjelasan = materiSnapshot.child("penjelasan").getValue(String::class.java)
-
-                    // Tambahkan data ke dalam list subMateri
                     subMateriList.add(Materi("https://firebasestorage.googleapis.com/v0/b/stoik-app.appspot.com/o/edukasi%2Focd%2Fimgocd5.png?alt=media&token=c7a49418-14d8-403f-ab60-3e4c5408a641",judul, penjelasan))  // Gantilah "" dengan URL gambar jika diperlukan
                 }
 
-                // Set adapter ke RecyclerView
                 val materiAdapter = MateriAdapter(requireContext(), subMateriList)
                 binding.recyclerViewQuest.adapter = materiAdapter
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Handle error if needed
+
             }
         })
     }

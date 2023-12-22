@@ -2,6 +2,8 @@ package com.app.stoikapp.view.home.psikolog
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,16 +15,22 @@ import androidx.lifecycle.lifecycleScope
 import com.app.stoikapp.data.datastore.SharedPref
 import com.app.stoikapp.data.model.Booking
 import com.app.stoikapp.data.model.ResponseGetToken
+import com.app.stoikapp.data.model.User
 import com.app.stoikapp.data.network.ApiClient
 import com.app.stoikapp.databinding.FragmentDetailPsikologBinding
 import com.bumptech.glide.Glide
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.midtrans.sdk.corekit.core.MidtransSDK
 import com.midtrans.sdk.corekit.core.TransactionRequest
 import com.midtrans.sdk.corekit.core.themes.CustomColorTheme
 import com.midtrans.sdk.corekit.models.ShippingAddress
 import com.midtrans.sdk.corekit.models.snap.TransactionResult
 import com.midtrans.sdk.uikit.SdkUIFlowBuilder
+import kotlinx.coroutines.flow.collect
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +38,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import kotlin.random.Random
 
 
 class DetailPsikologFragment : Fragment() {
@@ -37,6 +46,7 @@ class DetailPsikologFragment : Fragment() {
     private var namaUser = ""
     private var userId = ""
     private var formattedDate = ""
+    private var email = ""
     private lateinit var binding: FragmentDetailPsikologBinding
 
     override fun onCreateView(
@@ -50,13 +60,15 @@ class DetailPsikologFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPref = SharedPref(requireContext())
 
-
         lifecycleScope.launchWhenStarted {
             sharedPref.getFullName.collect { fullName ->
                 namaUser = fullName
             }
             sharedPref.getUserId.collect { id ->
                 userId = id
+            }
+            sharedPref.getEmail.collect { emails ->
+                email = emails
             }
         }
 
@@ -96,13 +108,23 @@ class DetailPsikologFragment : Fragment() {
             sabtuMingguTxt.text = sabtuMinggu
             Glide.with(requireContext()).load(profile).into(btnEditProfile)
 
+            btnLihatAlamat.setOnClickListener {
+                openGoogleMapsLink(lihatAlamat.toString())
+            }
+
+            btnBack.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
+
             btnBookNow.setOnClickListener {
                 lifecycleScope.launchWhenStarted {
                     sharedPref.getUserId.collect { id ->
                         userId = id
 
-                        val bookingId = FirebaseDatabase.getInstance().getReference("history/booking").child(userId)
-                            .push().key
+                        val bookingId =
+                            FirebaseDatabase.getInstance().getReference("history/booking")
+                                .child(userId)
+                                .push().key
 
                         val selectedTime = editWaktu.text.toString()
                         val catatan = editCatatan.text.toString()
@@ -118,12 +140,34 @@ class DetailPsikologFragment : Fragment() {
                             biaya = harga.toString(),
                             catatan = catatan
                         )
+                        val randomId = generateRandomId()
 
                         val databaseReference =
-                            FirebaseDatabase.getInstance().getReference("history/booking").child(userId)
+                            FirebaseDatabase.getInstance().getReference("history/booking")
+                                .child(userId)
                                 .child(bookingId ?: "")
+
                         databaseReference.setValue(booking).addOnSuccessListener {
-                            getSnapToken()
+                            getSnapToken(
+                                namaUser,
+                                nomorTelepon.toString(),
+                                "raynaldizoel@gmail.com",
+                                randomId.toString(),
+                                nama.toString(),
+                                1,
+                                harga!!
+                            )
+                            Log.d(
+                                "Data : ",
+                                "Nama User: $namaUser, " +
+                                        "Nomor Telepon: $nomorTelepon, " +
+                                        "Email User: raynaldizoel@gmail.com, " +
+                                        "Random ID: $randomId, " +
+                                        "Nama Psikolog: $nama, " +
+                                        "Quantity: 1, " +
+                                        "Harga: $harga"
+                            )
+
                             Log.d("Booking", "Booking added to history with ID: $bookingId")
                         }.addOnFailureListener {
                             Log.e("Booking", "Failed to add booking to history")
@@ -131,6 +175,20 @@ class DetailPsikologFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    fun generateRandomId(): Int {
+        return Random.nextInt(1, 10000)
+    }
+
+    private fun openGoogleMapsLink(link: String) {
+        val mapsLink = link
+        val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse(mapsLink))
+        if (mapIntent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(mapIntent)
+        } else {
+            // TODO
         }
     }
 
@@ -158,6 +216,7 @@ class DetailPsikologFragment : Fragment() {
 
         datePickerDialog.show()
     }
+
     private fun formatDate(day: Int, month: Int, year: Int): String {
         val dayName =
             SimpleDateFormat("EEEE", Locale("id", "ID")).format(Date(year - 1900, month - 1, day))
@@ -165,6 +224,7 @@ class DetailPsikologFragment : Fragment() {
             SimpleDateFormat("MMMM", Locale("id", "ID")).format(Date(year - 1900, month - 1, day))
         return "$dayName, $day $monthName $year"
     }
+
     private fun showTimePicker() {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -191,7 +251,7 @@ class DetailPsikologFragment : Fragment() {
             .setTransactionFinishedCallback { result ->
                 handleTransactionResult(result)
             }
-            .setMerchantBaseUrl("https://app.sandbox.midtrans.com/")
+            .setMerchantBaseUrl("https://app.sandbox.midtrans.com/snap/v2/vtweb/")
             .enableLog(true)
             .setColorTheme(CustomColorTheme("#FFE51255", "#B61548", "#FFE51255"))
             .setLanguage("id")
@@ -220,27 +280,54 @@ class DetailPsikologFragment : Fragment() {
         transactionRequest.customerDetails = customerDetail
 
     }
-
-    private fun getSnapToken() {
-        ApiClient.instance.getMidtrans().enqueue(object : Callback<ResponseGetToken> {
+    private fun getSnapToken(
+        customerFirstName: String,
+        customerPhone: String,
+        customerEmail: String,
+        productId: String,
+        productName: String,
+        quantity: Int,
+        price: Int
+    ) {
+        ApiClient.instance.getMidtrans(
+            customerFirstName,
+            customerPhone,
+            customerEmail,
+            productId,
+            productName,
+            quantity,
+            price
+        ).enqueue(object : Callback<ResponseGetToken> {
             override fun onResponse(
                 call: Call<ResponseGetToken>,
                 response: Response<ResponseGetToken>
             ) {
+                // Check if the response is successful
                 if (response.isSuccessful) {
+                    // Access the token only if the response is successful
                     val token = response.body()?.token
                     Log.d("token", token.toString())
 
                     // Call function to initiate payment
                     token?.let { initiatePayment(it) }
+                } else {
+                    // Handle unsuccessful response
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to get token. ${response.message()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             override fun onFailure(call: Call<ResponseGetToken>, t: Throwable) {
-                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                // Handle network errors or other failures
+                Toast.makeText(requireContext(), "Network error: ${t.message}", Toast.LENGTH_SHORT)
+                    .show()
             }
         })
     }
+
 
     private fun handleTransactionResult(result: TransactionResult) {
         if (result.response != null) {

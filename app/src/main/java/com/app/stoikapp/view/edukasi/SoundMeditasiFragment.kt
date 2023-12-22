@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.app.stoikapp.data.model.MeditasiSong
 import com.app.stoikapp.databinding.FragmentSoundMeditasiBinding
 import com.google.firebase.database.*
@@ -34,6 +35,10 @@ class SoundMeditasiFragment : Fragment() {
         binding.soundMeditasi.adapter = meditasiAdapter
 
         readDataFromFirebase()
+
+        binding.btnBack.setOnClickListener{
+            findNavController().navigateUp()
+        }
     }
 
     private fun readDataFromFirebase() {

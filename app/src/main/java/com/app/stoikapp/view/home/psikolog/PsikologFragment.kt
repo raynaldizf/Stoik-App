@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.stoikapp.data.model.Psikolog
 import com.app.stoikapp.databinding.FragmentPsikologBinding
@@ -37,6 +38,10 @@ class PsikologFragment : Fragment() {
         binding.rvPsikolog.adapter = psikologAdapter
 
         readDataFromFirebase()
+
+        binding.btnBack.setOnClickListener{
+            findNavController().navigateUp()
+        }
     }
 
     private fun readDataFromFirebase() {

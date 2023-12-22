@@ -10,6 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -101,7 +102,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/custom_input"
-                app:queryHint="Cari Product"
+                app:queryHint="Cari disini..."
 
                 />
 
@@ -125,7 +126,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="25dp"
-                android:backgroundTint="#092C4C"
+                android:backgroundTint="@color/royal_blue"
                 android:elevation="0dp"
                 app:cardCornerRadius="12dp">
 
@@ -159,7 +160,7 @@
                             android:fontFamily="@font/plusjakartasansbold"
                             android:text="Mengurangi Kecemasan Diri"
                             android:textColor="@color/white"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             />
 
                         <TextView
@@ -171,17 +172,6 @@
                             android:text="Minum air 250 ml "
                             android:textColor="@color/white"
                             android:textSize="14sp"
-
-                            />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="5dp"
-                            android:backgroundTint="@color/white"
-                            android:fontFamily="@font/plusjakartasansmedium"
-                            android:text="Lihat"
-                            android:textColor="#092C4C"
 
                             />
                     </LinearLayout>

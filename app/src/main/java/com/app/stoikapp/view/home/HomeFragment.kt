@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -49,6 +50,9 @@ class HomeFragment : Fragment() {
             sharedPref.getUserId.collect { id ->
                 fetchUserDetails(id)
             }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Do nothing or show a message if needed
         }
         databaseReferenceMeditasi = FirebaseDatabase.getInstance().getReference("meditasi")
         databaseReferencePsikolog = FirebaseDatabase.getInstance().getReference("psikolog")

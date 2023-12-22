@@ -33,7 +33,7 @@ class PsikologAdapter(private val context: Context, private val psikologList: Mu
         Glide.with(holder.itemView.context)
             .load(psikolog.profile)
             .into(holder.binding.imgProfile)
-        holder.binding.btnDetail.setOnClickListener {
+        holder.binding.cardView.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("id", psikolog.id)
             bundle.putString("nama", psikolog.nama)

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="15dp"
     android:elevation="0dp"
     android:id="@+id/cardView"
     android:backgroundTint="#B0D6F5"
@@ -22,7 +22,7 @@
             android:fontFamily="@font/plusjakartasansbold"
             android:text="Diagnosis"
             android:textColor="@color/royal_blue"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:layout_alignParentStart="true"
 
 
@@ -44,12 +44,12 @@
             android:id="@+id/deskrpsi"
             android:layout_below="@id/header"
             android:layout_marginTop="5dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/plusjakartasanslight"
             android:text="Hasil diagnosis kamu mengalami depresi tingkat sedang...."
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="12sp"
             android:layout_alignParentEnd="true"
 
 

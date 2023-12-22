@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.app.stoikapp.R
 import com.app.stoikapp.data.datastore.SharedPref
 import com.app.stoikapp.databinding.FragmentEditProfileBinding
 import com.google.firebase.database.DatabaseReference
@@ -232,6 +233,7 @@ class EditProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                         userDatabaseRef.updateChildren(updatedUserData)
                             .addOnSuccessListener {
                                 Log.d("Firebase Database", "User data updated successfully")
+                                findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment)
                             }
                             .addOnFailureListener { e ->
                                 Log.e("Firebase Database", "Error updating user data", e)

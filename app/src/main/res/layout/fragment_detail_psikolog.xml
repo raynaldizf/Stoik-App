@@ -166,6 +166,7 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLihatAlamat"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_marginTop="10dp"
@@ -338,12 +339,13 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBookNow"
                 android:layout_width="match_parent"
-                android:layout_height="67dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="40dp"
                 android:backgroundTint="@color/dodger_blue"
                 android:fontFamily="@font/plusjakartasansextrabold"
                 android:text="Book Now"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 app:cornerRadius="20dp" />
 
         </LinearLayout>

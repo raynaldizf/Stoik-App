@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.stoikapp.R
 import com.app.stoikapp.data.model.Edukasi
@@ -43,6 +44,10 @@ class EdukasiMentalFragment : Fragment() {
         binding.rvEdukasi.adapter = edukasiAdapter
 
         readEdukasiDataFromFirebase()
+
+        binding.btnBack.setOnClickListener{
+            findNavController().navigateUp()
+        }
 
 
     }

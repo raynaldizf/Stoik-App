@@ -30,7 +30,11 @@
         android:id="@+id/editProfileFragment"
         android:name="com.app.stoikapp.view.profile.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.app.stoikapp.view.history.HistoryFragment"

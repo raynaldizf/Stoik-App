@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.app.stoikapp.R
 import com.app.stoikapp.databinding.FragmentEdukasiQuestAnswerBinding
 import com.bumptech.glide.Glide
@@ -31,6 +32,9 @@ class EdukasiQuestAnswerFragment : Fragment() {
         binding.textViewTitle.text = judul
         binding.textViewDesc.text = penjelasan
         Glide.with(requireContext()).load(gambar).into(binding.imageView)
+        binding.btnBack.setOnClickListener{
+            findNavController().navigateUp()
+        }
     }
 
 }
