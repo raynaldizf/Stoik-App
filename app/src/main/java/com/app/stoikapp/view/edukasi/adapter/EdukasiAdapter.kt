@@ -30,8 +30,8 @@ class EdukasiAdapter(private val context: Context, private val materiList: Mutab
             val bundle = Bundle()
             bundle.putString("materi", materi.path)
             bundle.putString("judul", materi.judul)
+            bundle.putString("gambar", materi.gambar)
             Navigation.findNavController(it).navigate(com.app.stoikapp.R.id.action_edukasiHomeFragment_to_edukasiQuestFragment, bundle)
-
         }
     }
 

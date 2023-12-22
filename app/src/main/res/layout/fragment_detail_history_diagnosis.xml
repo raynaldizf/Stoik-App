@@ -91,6 +91,7 @@
                 android:fontFamily="@font/plusjakartasanslight"
                 android:text="Berdasarkan hasil diagnosis setelah menjawab pertanyaan dengan kentuan yang telah dijalankan adalah : "
                 android:textSize="14sp"
+                android:gravity="start"
 
                 />
 
@@ -147,7 +148,7 @@
                 android:fontFamily="@font/plusjakartasanslight"
                 android:text="kurang percaya diri dan/atau harga diri, mengakibatkan kurangnya motivasi untuk melakukan sesuatu. Seringkali seseorang mengkhawatirkan hal-hal sensitif yang tidak perlu dan cenderung merasa sakit hati atau tersinggung dalam hubungan pribadi"
                 android:textSize="14sp"
-
+                android:gravity="start"
 
                 />
 

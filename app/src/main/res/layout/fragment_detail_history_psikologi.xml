@@ -91,7 +91,7 @@
                 android:fontFamily="@font/plusjakartasanslight"
                 android:text="Pembayaran sudah berhasil cek detai reservasi kamu : "
                 android:textSize="14sp"
-
+                android:gravity="start"
 
                 />
 
@@ -292,7 +292,7 @@
                 android:text="Pastikan anda data tepat waktu, dan jika terdapat masalah silahkan hubungi kami.
 Tetap semangat dan sehat selalu."
                 android:textSize="14sp"
-
+                android:gravity="start"
 
                 />
 

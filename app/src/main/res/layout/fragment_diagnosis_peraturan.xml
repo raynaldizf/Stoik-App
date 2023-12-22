@@ -86,20 +86,57 @@
             android:textColor="@color/royal_blue"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/diagnosisInfo"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/plusjakartasanslight"
-            android:text="
-            1. Saat Anda menjawab pertanyaan terdapat 5 pilihan.\n\n
-            2. Pilihlah sesuai dengan kondisi Anda dan apa yang Anda rasakan saat ini.\n\n
-            3. Tidak ada waktu pengerjaan.\n\n
-            4. Di akhir, akan ada diagnosis sesuai dengan jawaban Anda."
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            tools:ignore="HardcodedText" />
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/paragraph1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/plusjakartasanslight"
+                android:text="1. Saat Anda menjawab pertanyaan terdapat 5 pilihan."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginBottom="5dp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/paragraph2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/plusjakartasanslight"
+                android:text="2. Pilihlah sesuai dengan kondisi Anda dan apa yang Anda rasakan saat ini."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginBottom="5dp"
+
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/paragraph3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/plusjakartasanslight"
+                android:text="3. Tidak ada waktu pengerjaan."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginBottom="5dp"
+
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/paragraph4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/plusjakartasanslight"
+                android:text="4. Di akhir, akan ada diagnosis sesuai dengan jawaban Anda."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
 
 
         <com.google.android.material.button.MaterialButton

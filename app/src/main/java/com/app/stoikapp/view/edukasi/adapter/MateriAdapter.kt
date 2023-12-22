@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.stoikapp.data.model.Materi
 import com.app.stoikapp.data.model.SubMateri
 import com.app.stoikapp.databinding.CustomListQuesttionBinding
+import com.bumptech.glide.Glide
 
 class MateriAdapter(private val context: Context, private val subMateriList: MutableList<Materi>) :
     RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
@@ -37,6 +38,7 @@ class MateriAdapter(private val context: Context, private val subMateriList: Mut
         }
 
         holder.binding.materiJudul.text = subMateri.judul
+        Glide.with(context).load(subMateri.gambar).into(holder.binding.imageView)
     }
 
     override fun getItemCount(): Int {
